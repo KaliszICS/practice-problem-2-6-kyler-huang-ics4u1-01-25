@@ -92,15 +92,16 @@ public class PracticeProblem {
 
     public static String leastIterations(double[] nums) {
         int[] bubble = bubbleSort(nums.clone());
-        int[] selection = selectionSort(nums.clone());
         int[] insertion = insertionSort(nums.clone());
+        int[] selection = selectionSort(nums.clone());
 
-        int minSteps = Math.min(Math.min(bubble[1], selection[1]), insertion[1]);
+        int minSteps = Math.min(Math.min(bubble[1], insertion[1]), selection[1]);
 
-        // check alphabetical order if there’s a tie
-        if (bubble[1] == minSteps && bubble[1] <= insertion[1] && bubble[1] <= selection[1]) return "Bubble";
-        if (insertion[1] == minSteps && insertion[1] <= bubble[1] && insertion[1] <= selection[1]) return "Insertion";
+        // Alphabetical tie-breaking: Bubble < Insertion < Selection
+        if (bubble[1] == minSteps) return "Bubble";
+        if (insertion[1] == minSteps) return "Insertion";
         return "Selection";
     }
+
 
 }
