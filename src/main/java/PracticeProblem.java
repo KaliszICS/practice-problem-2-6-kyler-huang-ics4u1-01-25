@@ -80,25 +80,29 @@ public static int[] insertionSort(double[] nums) {
 
     public static String leastSwaps(double[] nums) {
         int[] bubble = bubbleSort(nums.clone());
-        int[] insertion = insertionSort(nums.clone());
         int[] selection = selectionSort(nums.clone());
+        int[] insertion = insertionSort(nums.clone());
 
-        int minSwaps = Math.min(Math.min(bubble[0], insertion[0]), selection[0]);
+        int minSwaps = Math.min(Math.min(bubble[0], selection[0]), insertion[0]);
 
-        if (bubble[0] == minSwaps) return "Bubble";
-        if (insertion[0] == minSwaps) return "Insertion";
+        // check alphabetical order if there’s a tie
+        if (bubble[0] == minSwaps && bubble[0] <= selection[0] && bubble[0] <= insertion[0]) return "Bubble";
+        if (insertion[0] == minSwaps && insertion[0] <= bubble[0] && insertion[0] <= selection[0]) return "Insertion";
         return "Selection";
     }
+
 
     public static String leastIterations(double[] nums) {
         int[] bubble = bubbleSort(nums.clone());
-        int[] insertion = insertionSort(nums.clone());
         int[] selection = selectionSort(nums.clone());
+        int[] insertion = insertionSort(nums.clone());
 
-        int minSteps = Math.min(Math.min(bubble[1], insertion[1]), selection[1]);
+        int minSteps = Math.min(Math.min(bubble[1], selection[1]), insertion[1]);
 
-        if (bubble[1] == minSteps) return "Bubble";
-        if (insertion[1] == minSteps) return "Insertion";
+        // check alphabetical order if there’s a tie
+        if (bubble[1] == minSteps && bubble[1] <= insertion[1] && bubble[1] <= selection[1]) return "Bubble";
+        if (insertion[1] == minSteps && insertion[1] <= bubble[1] && insertion[1] <= selection[1]) return "Insertion";
         return "Selection";
     }
+
 }
