@@ -1,21 +1,6 @@
-class PracticeProblem {
+public class PracticeProblem {
 
-    public static void main(String[] args) {
-        int[] arr = {5, 1, 4, 2, 3};
-
-        int[] bubbleResult = bubbleSort(arr.clone());
-        int[] selectionResult = selectionSort(arr.clone());
-        int[] insertionResult = insertionSort(arr.clone());
-
-        System.out.println("Bubble: swaps=" + bubbleResult[0] + " steps=" + bubbleResult[1]);
-        System.out.println("Selection: swaps=" + selectionResult[0] + " steps=" + selectionResult[1]);
-        System.out.println("Insertion: swaps=" + insertionResult[0] + " steps=" + insertionResult[1]);
-
-        System.out.println("Least swaps: " + leastSwaps(arr));
-        System.out.println("Least iterations: " + leastIterations(arr));
-    }
-
-    public static int[] bubbleSort(int[] nums) {
+    public static int[] bubbleSort(double[] nums) {
         int swaps = 0;
         int steps = 0;
         int n = nums.length;
@@ -26,7 +11,7 @@ class PracticeProblem {
             for (int j = 0; j < n - i - 1; j++) {
                 steps++;
                 if (nums[j] > nums[j + 1]) {
-                    int temp = nums[j];
+                    double temp = nums[j];
                     nums[j] = nums[j + 1];
                     nums[j + 1] = temp;
                     swaps += 3;
@@ -39,7 +24,7 @@ class PracticeProblem {
         return new int[]{swaps, steps};
     }
 
-    public static int[] selectionSort(int[] nums) {
+    public static int[] selectionSort(double[] nums) {
         int swaps = 0;
         int steps = 0;
         int n = nums.length;
@@ -53,7 +38,7 @@ class PracticeProblem {
                 }
             }
             if (minIndex != i) {
-                int temp = nums[i];
+                double temp = nums[i];
                 nums[i] = nums[minIndex];
                 nums[minIndex] = temp;
                 swaps += 3;
@@ -63,14 +48,13 @@ class PracticeProblem {
         return new int[]{swaps, steps};
     }
 
-    public static int[] insertionSort(int[] nums) {
+    public static int[] insertionSort(double[] nums) {
         int swaps = 0;
         int steps = 0;
         int n = nums.length;
 
         for (int i = 1; i < n; i++) {
-            int key = nums[i];
-            swaps++;
+            double key = nums[i];
             int j = i - 1;
 
             while (j >= 0) {
@@ -83,33 +67,49 @@ class PracticeProblem {
                     break;
                 }
             }
+
             nums[j + 1] = key;
+            swaps++;
         }
 
         return new int[]{swaps, steps};
     }
 
-    public static String leastSwaps(int[] nums) {
-        int[] bubble = bubbleSort(nums.clone());
-        int[] selection = selectionSort(nums.clone());
-        int[] insertion = insertionSort(nums.clone());
+    public static String leastSwaps(double[] nums) {
+        double[] arr1 = nums.clone();
+        double[] arr2 = nums.clone();
+        double[] arr3 = nums.clone();
 
-        int minSwaps = Math.min(Math.min(bubble[0], selection[0]), insertion[0]);
+        int[] bubble = bubbleSort(arr1);
+        int[] selection = selectionSort(arr2);
+        int[] insertion = insertionSort(arr3);
 
-        if (bubble[0] == minSwaps) return "Bubble";
-        if (insertion[0] == minSwaps) return "Insertion";
-        return "Selection";
+        int min = Math.min(bubble[0], Math.min(selection[0], insertion[0]));
+
+        String result = "Bubble";
+        if (insertion[0] == min && result.compareTo("Insertion") > 0) result = "Insertion";
+        if (selection[0] == min && result.compareTo("Selection") > 0) result = "Selection";
+        if (bubble[0] == min && result.compareTo("Bubble") > 0) result = "Bubble";
+
+        return result;
     }
 
-    public static String leastIterations(int[] nums) {
-        int[] bubble = bubbleSort(nums.clone());
-        int[] selection = selectionSort(nums.clone());
-        int[] insertion = insertionSort(nums.clone());
+    public static String leastIterations(double[] nums) {
+        double[] arr1 = nums.clone();
+        double[] arr2 = nums.clone();
+        double[] arr3 = nums.clone();
 
-        int minSteps = Math.min(Math.min(bubble[1], selection[1]), insertion[1]);
+        int[] bubble = bubbleSort(arr1);
+        int[] selection = selectionSort(arr2);
+        int[] insertion = insertionSort(arr3);
 
-        if (bubble[1] == minSteps) return "Bubble";
-        if (insertion[1] == minSteps) return "Insertion";
-        return "Selection";
+        int min = Math.min(bubble[1], Math.min(selection[1], insertion[1]));
+
+        String result = "Bubble";
+        if (insertion[1] == min && result.compareTo("Insertion") > 0) result = "Insertion";
+        if (selection[1] == min && result.compareTo("Selection") > 0) result = "Selection";
+        if (bubble[1] == min && result.compareTo("Bubble") > 0) result = "Bubble";
+
+        return result;
     }
 }
