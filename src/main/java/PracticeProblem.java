@@ -55,20 +55,20 @@ public class PracticeProblem {
 
         for (int i = 1; i < n; i++) {
             double key = nums[i];
-            swaps++; // key assignment counts as 1
+            swaps++; // assignment of key
             int j = i - 1;
             while (j >= 0) {
                 steps++;
                 if (nums[j] > key) {
                     nums[j + 1] = nums[j];
-                    swaps++; // moving element counts as 1
+                    swaps++; // move counts as 1
                     j--;
                 } else {
                     break;
                 }
             }
             nums[j + 1] = key;
-            swaps++; // placing key counts as 1
+            swaps++; // final placement of key
         }
 
         return new int[]{swaps, steps};
@@ -76,10 +76,10 @@ public class PracticeProblem {
 
     public static String leastSwaps(double[] nums) {
         int[] bubble = bubbleSort(nums.clone());
-        int[] selection = selectionSort(nums.clone());
         int[] insertion = insertionSort(nums.clone());
+        int[] selection = selectionSort(nums.clone());
 
-        int minSwaps = Math.min(Math.min(bubble[0], selection[0]), insertion[0]);
+        int minSwaps = Math.min(Math.min(bubble[0], insertion[0]), selection[0]);
 
         if (bubble[0] == minSwaps) return "Bubble";
         if (insertion[0] == minSwaps) return "Insertion";
@@ -88,10 +88,10 @@ public class PracticeProblem {
 
     public static String leastIterations(double[] nums) {
         int[] bubble = bubbleSort(nums.clone());
-        int[] selection = selectionSort(nums.clone());
         int[] insertion = insertionSort(nums.clone());
+        int[] selection = selectionSort(nums.clone());
 
-        int minSteps = Math.min(Math.min(bubble[1], selection[1]), insertion[1]);
+        int minSteps = Math.min(Math.min(bubble[1], insertion[1]), selection[1]);
 
         if (bubble[1] == minSteps) return "Bubble";
         if (insertion[1] == minSteps) return "Insertion";
