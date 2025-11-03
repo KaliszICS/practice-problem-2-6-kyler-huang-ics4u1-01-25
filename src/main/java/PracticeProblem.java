@@ -48,34 +48,32 @@ public class PracticeProblem {
         return new int[]{swaps, steps};
     }
 
-public static int[] insertionSort(double[] nums) {
-    int swaps = 0; // counts swaps/assignments
-    int steps = 0; // counts comparisons
-    int n = nums.length;
+    public static int[] insertionSort(double[] nums) {
+        int swaps = 0;
+        int steps = 0;
+        int n = nums.length;
 
-    for (int i = 1; i < n; i++) {
-        double key = nums[i]; // taking the key counts as 1 swap
-        swaps++;
-        int j = i - 1;
+        for (int i = 1; i < n; i++) {
+            double key = nums[i];
+            swaps++;  // key assignment counts as one swap
+            int j = i - 1;
 
-        // compare and shift elements
-        while (j >= 0) {
-            steps++; // count this comparison
-            if (nums[j] > key) {
-                nums[j + 1] = nums[j]; // shifting counts as 1 swap
-                swaps++;
-                j--;
-            } else {
-                break; // comparison still counts in steps
+            while (j >= 0) {
+                steps++;  // comparison
+                if (nums[j] > key) {
+                    nums[j + 1] = nums[j];  // move element, counts as 1 swap
+                    swaps++;
+                    j--;
+                } else {
+                    break;
+                }
             }
+            nums[j + 1] = key; // final placement does NOT count as extra swap
         }
 
-        nums[j + 1] = key; // placing the key back counts as 1 swap
-        swaps++;
+        return new int[]{swaps, steps};
     }
 
-    return new int[]{swaps, steps};
-}
 
 
     public static String leastSwaps(double[] nums) {
